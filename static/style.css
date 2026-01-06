@@ -26,3 +26,14 @@ th, td {
     border: 1px solid #ccc;
     padding: 8px;
 }
+
+:root {
+  --ze-green: #00A859;
+  --ze-dark-green: #008A48;
+  --ze-yellow: #FFD400;
+  --ze-light-gray: #F4F6F8;
+  --ze-border: #E0E0E0;
+  --ze-text: #2E2E2E;
+  --white: #FFFFFF;
+}
+
