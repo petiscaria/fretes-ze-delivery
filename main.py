@@ -6,22 +6,39 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    entregas = []
-    total_valor = 0
-    total_qtd = 0
+    total_entregas = None
+    total_valor = None
+    dados = []
 
     if request.method == "POST":
-        file = request.files.get("file")
+        arquivo = request.files.get("arquivo")
 
-        if file and file.filename.endswith(".csv"):
-            stream = io.StringIO(file.stream.read().decode("utf-8"), newline=None)
-            reader = csv.DictReader(stream)
+        if arquivo:
+            stream = io.StringIO(arquivo.stream.read().decode("utf-8"))
+            leitor = csv.DictReader(stream)
 
-            for row in reader:
-                valor = float(row.get("valor", 0))
-                entregas.append({
-                    "data": row.get("data"),
-                    "entregador": row.get("entregador"),
-                    "valor": valor
+            total_entregas = 0
+            total_valor = 0
+
+            for linha in leitor:
+                total_entregas += 1
+                valor = float(linha.get("valor", 0))
+                total_valor += valor
+
+                dados.append({
+                    "data": linha.get("data", ""),
+                    "entregador": linha.get("entregador", ""),
+                    "valor": f"{valor:.2f}"
                 })
-                total_valo_
+
+            total_valor = f"{total_valor:.2f}"
+
+    return render_template(
+        "index.html",
+        total_entregas=total_entregas,
+        total_valor=total_valor,
+        dados=dados
+    )
+
+if __name__ == "__main__":
+    app.run(debug=True)
