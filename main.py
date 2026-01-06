@@ -5,13 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return """
-    <h1>🚚 Sistema de Fretes – Zé Delivery</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".xlsx" required>
-        <button type="submit">Processar</button>
-    </form>
-    """
+    return render_template("index.html")
 
 @app.route("/upload", methods=["POST"])
 def upload():
@@ -23,7 +17,9 @@ def upload():
     df = pd.read_excel(file)
 
     total_entregas = len(df)
-    total_valor = round(df.select_dtypes(include="number").sum().sum(), 2)
+    total_valor = round(
+        df.select_dtypes(include="number").sum().sum(), 2
+    )
 
     dados = df.fillna("").to_dict(orient="records")
 
@@ -36,4 +32,3 @@ def upload():
 
 if __name__ == "__main__":
     app.run(debug=True)
-``
