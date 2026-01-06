@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: #fffbe6;
+    background-color: #fffbe6;
     padding: 30px;
 }
 
@@ -9,18 +9,20 @@ h1 {
 }
 
 button {
-    padding: 8px 16px;
-    background: #ffcc00;
+    background-color: #ffcc00;
     border: none;
-    cursor: pointer;
+    padding: 10px 20px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 table {
     margin-top: 20px;
     border-collapse: collapse;
+    width: 60%;
 }
 
-td, th {
+th, td {
+    border: 1px solid #ccc;
     padding: 8px;
 }
