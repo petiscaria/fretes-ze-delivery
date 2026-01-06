@@ -3,40 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Fretes Zé Delivery</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <h1>🚚 Sistema de Fretes – Zé Delivery</h1>
 
-<h1>🚚 Sistema de Fretes – Zé Delivery</h1>
-
-<form method="POST" enctype="multipart/form-data">
-    <input type="file" name="arquivo" accept=".csv" required>
-    <button type="submit">Processar Fretes</button>
-</form>
-
-{% if total_entregas %}
-<hr>
-
-<h2>Resumo</h2>
-<p><strong>Total de entregas:</strong> {{ total_entregas }}</p>
-<p><strong>Valor total:</strong> R$ {{ total_valor }}</p>
-
-<table>
-    <tr>
-        <th>Data</th>
-        <th>Entregador</th>
-        <th>Valor</th>
-    </tr>
-    {% for linha in dados %}
-    <tr>
-        <td>{{ linha.data }}</td>
-        <td>{{ linha.entregador }}</td>
-        <td>R$ {{ linha.valor }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-{% endif %}
-
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".xlsx" required>
+        <button type="submit">Processar</button>
+    </form>
 </body>
 </html>
