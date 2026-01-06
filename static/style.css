@@ -1,39 +1,73 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fffbe6;
-    padding: 30px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: var(--ze-light-gray);
+  color: var(--ze-text);
 }
 
-h1 {
-    color: #ffcc00;
+h1, h2 {
+  color: var(--ze-dark-green);
 }
 
-button {
-    background-color: #ffcc00;
-    border: none;
-    padding: 10px 20px;
-    font-weight: bold;
-    cursor: pointer;
+.table-container {
+  overflow-x: auto;
+  background: var(--white);
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  margin-bottom: 40px;
 }
 
 table {
-    margin-top: 20px;
-    border-collapse: collapse;
-    width: 60%;
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1100px;
 }
 
-th, td {
-    border: 1px solid #ccc;
-    padding: 8px;
+thead th {
+  background-color: var(--ze-green);
+  color: var(--white);
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid var(--ze-dark-green);
 }
 
-:root {
-  --ze-green: #00A859;
-  --ze-dark-green: #008A48;
-  --ze-yellow: #FFD400;
-  --ze-light-gray: #F4F6F8;
-  --ze-border: #E0E0E0;
-  --ze-text: #2E2E2E;
-  --white: #FFFFFF;
+thead tr:nth-child(2) th {
+  background-color: var(--ze-dark-green);
+  font-size: 13px;
 }
 
+tbody td {
+  padding: 8px 10px;
+  border: 1px solid var(--ze-border);
+  text-align: center;
+  font-size: 13px;
+}
+
+tbody td:first-child {
+  text-align: left;
+  font-weight: 500;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #F9FBFA;
+}
+
+tbody tr:hover {
+  background-color: #EAF7F0;
+}
+
+.total-dia {
+  background-color: var(--ze-yellow);
+  font-weight: bold;
+}
+
+.total-geral {
+  background-color: var(--ze-green);
+  color: var(--white);
+  font-weight: bold;
+}
+
+.valor {
+  white-space: nowrap;
+}
