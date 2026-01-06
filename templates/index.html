@@ -1,38 +1,40 @@
-from flask import Flask, render_template, request
-import csv
-import io
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Fretes Zé Delivery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
-app = Flask(__name__)
+<h1>🚚 Sistema de Fretes – Zé Delivery</h1>
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    entregas = []
-    total_valor = 0
-    total_qtd = 0
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="arquivo" accept=".csv" required>
+    <button type="submit">Enviar CSV</button>
+</form>
 
-    if request.method == "POST":
-        file = request.files.get("file")
+{% if total_entregas %}
+<hr>
+<h2>Resumo</h2>
+<p><strong>Total de entregas:</strong> {{ total_entregas }}</p>
+<p><strong>Valor total:</strong> R$ {{ total_valor }}</p>
 
-        if file and file.filename.endswith(".csv"):
-            stream = io.StringIO(file.stream.read().decode("utf-8"), newline=None)
-            reader = csv.DictReader(stream)
+<table border="1">
+    <tr>
+        <th>Data</th>
+        <th>Entregador</th>
+        <th>Valor</th>
+    </tr>
+    {% for linha in dados %}
+    <tr>
+        <td>{{ linha.data }}</td>
+        <td>{{ linha.entregador }}</td>
+        <td>{{ linha.valor }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
 
-            for row in reader:
-                valor = float(row.get("valor", 0))
-                entregas.append({
-                    "data": row.get("data"),
-                    "entregador": row.get("entregador"),
-                    "valor": valor
-                })
-                total_valor += valor
-                total_qtd += 1
-
-    return render_template(
-        "index.html",
-        entregas=entregas,
-        total_valor=total_valor,
-        total_qtd=total_qtd
-    )
-
-if __name__ == "__main__":
-    app.run()
+</body>
+</html>
