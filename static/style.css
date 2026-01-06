@@ -1,73 +1,49 @@
+
 body {
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background-color: var(--ze-light-gray);
-  color: var(--ze-text);
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    padding: 20px;
 }
 
-h1, h2 {
-  color: var(--ze-dark-green);
+h2 {
+    color: #000;
 }
 
 .table-container {
-  overflow-x: auto;
-  background: var(--white);
-  padding: 16px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  margin-bottom: 40px;
+    overflow-x: auto;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 1100px;
+.ze-table {
+    border-collapse: collapse;
+    width: 100%;
+    background: white;
 }
 
-thead th {
-  background-color: var(--ze-green);
-  color: var(--white);
-  text-align: center;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid var(--ze-dark-green);
+.ze-table th {
+    background-color: #FFD400;
+    color: #000;
+    padding: 10px;
+    text-align: center;
 }
 
-thead tr:nth-child(2) th {
-  background-color: var(--ze-dark-green);
-  font-size: 13px;
+.ze-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
 }
 
-tbody td {
-  padding: 8px 10px;
-  border: 1px solid var(--ze-border);
-  text-align: center;
-  font-size: 13px;
+.ze-table tr:nth-child(even) {
+    background-color: #fff7cc;
 }
 
-tbody td:first-child {
-  text-align: left;
-  font-weight: 500;
+button {
+    background: #FFD400;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-tbody tr:nth-child(even) {
-  background-color: #F9FBFA;
-}
-
-tbody tr:hover {
-  background-color: #EAF7F0;
-}
-
-.total-dia {
-  background-color: var(--ze-yellow);
-  font-weight: bold;
-}
-
-.total-geral {
-  background-color: var(--ze-green);
-  color: var(--white);
-  font-weight: bold;
-}
-
-.valor {
-  white-space: nowrap;
+button:hover {
+    background: #f2c200;
 }
