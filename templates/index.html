@@ -11,16 +11,17 @@
 
 <form method="POST" enctype="multipart/form-data">
     <input type="file" name="arquivo" accept=".csv" required>
-    <button type="submit">Enviar CSV</button>
+    <button type="submit">Processar Fretes</button>
 </form>
 
 {% if total_entregas %}
 <hr>
+
 <h2>Resumo</h2>
 <p><strong>Total de entregas:</strong> {{ total_entregas }}</p>
 <p><strong>Valor total:</strong> R$ {{ total_valor }}</p>
 
-<table border="1">
+<table>
     <tr>
         <th>Data</th>
         <th>Entregador</th>
@@ -30,10 +31,11 @@
     <tr>
         <td>{{ linha.data }}</td>
         <td>{{ linha.entregador }}</td>
-        <td>{{ linha.valor }}</td>
+        <td>R$ {{ linha.valor }}</td>
     </tr>
     {% endfor %}
 </table>
+
 {% endif %}
 
 </body>
