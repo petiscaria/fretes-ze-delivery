@@ -1,1 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado – Fretes Zé Delivery</title>
+</head>
+<body>
+
+<h1>📦 Resultado do Processamento</h1>
+
+<p><strong>Total de entregas:</strong> {{ total_entregas }}</p>
+<p><strong>Valor total:</strong> R$ {{ total_valor }}</p>
+
+<hr>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            {% for coluna in dados[0].keys() %}
+            <th>{{ coluna }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for linha in dados %}
+        <tr>
+            {% for valor in linha.values() %}
+            <td>{{ valor }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
 
