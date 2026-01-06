@@ -3,43 +3,40 @@ import pandas as pd
 import csv
 import io
 
-app = Flask(__name__)
+@app.route("/upload", methods=["POST"])
+def upload():
+    arquivo = request.files.get("arquivo")
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    total_entregas = None
-    total_valor = None
-    dados = []
+    if not arquivo or not arquivo.filename.endswith(".xlsx"):
+        return "Arquivo inválido. Envie um XLSX.", 400
 
-    if request.method == "POST":
-        arquivo = request.files.get("arquivo")
+    try:
+        df = pd.read_excel(arquivo)
+    except Exception as e:
+        return f"Erro ao ler o arquivo: {e}", 500
 
-        if arquivo:
-            stream = io.StringIO(arquivo.stream.read().decode("utf-8"))
-            leitor = csv.DictReader(stream)
+    # 🔧 NORMALIZA NOMES DAS COLUNAS
+    df.columns = [c.strip().lower() for c in df.columns]
 
-            total_entregas = 0
-            total_valor = 0
+    total_entregas = len(df)
 
-            for linha in leitor:
-                total_entregas += 1
-                valor = float(linha.get("valor", 0))
-                total_valor += valor
+    # 🔧 TRATA VALOR (vírgula, vazio, NaN)
+    if "valor" in df.columns:
+        df["valor"] = (
+            df["valor"]
+            .astype(str)
+            .str.replace(",", ".", regex=False)
+        )
+        df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0)
+        total_valor = df["valor"].sum()
+    else:
+        total_valor = 0
 
-                dados.append({
-                    "data": linha.get("data", ""),
-                    "entregador": linha.get("entregador", ""),
-                    "valor": f"{valor:.2f}"
-                })
-
-            total_valor = f"{total_valor:.2f}"
+    dados = df.fillna("").to_dict(orient="records")
 
     return render_template(
-        "index.html",
+        "resultado.html",
         total_entregas=total_entregas,
-        total_valor=total_valor,
+        total_valor=f"{total_valor:.2f}",
         dados=dados
     )
-
-if __name__ == "__main__":
-    app.run(debug=True)
