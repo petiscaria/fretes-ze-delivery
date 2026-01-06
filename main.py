@@ -1,39 +1,39 @@
 from flask import Flask, request, render_template
 import pandas as pd
-import os
 
-# ✅ APP TEM QUE SER CRIADO PRIMEIRO
 app = Flask(__name__)
 
-# ======================
-# ROTA HOME
-# ======================
 @app.route("/")
 def index():
     return """
     <h1>🚚 Sistema de Fretes – Zé Delivery</h1>
-    <p>Site rodando corretamente.</p>
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="arquivo" accept=".xlsx" required>
-        <br><br>
-        <button type="submit">Processar XLSX</button>
+        <input type="file" name="file" accept=".xlsx" required>
+        <button type="submit">Processar</button>
     </form>
     """
 
-# ======================
-# ROTA UPLOAD (XLSX)
-# ======================
 @app.route("/upload", methods=["POST"])
 def upload():
-    arquivo = request.files.get("arquivo")
+    file = request.files.get("file")
 
-    if not arquivo or not arquivo.filename.endswith(".xlsx"):
-        return "Arquivo inválido. Envie um XLSX.", 400
+    if not file:
+        return "Nenhum arquivo enviado", 400
 
-    try:
-        df = pd.read_excel(arquivo)
-    except Exception as e:
-        return f"Erro ao ler o arquivo: {e}", 500
+    df = pd.read_excel(file)
 
-    # Normaliza colunas
-    df.columns = [c.strip().lower() for c in df.colu]()
+    total_entregas = len(df)
+    total_valor = round(df.select_dtypes(include="number").sum().sum(), 2)
+
+    dados = df.fillna("").to_dict(orient="records")
+
+    return render_template(
+        "resultado.html",
+        total_entregas=total_entregas,
+        total_valor=total_valor,
+        dados=dados
+    )
+
+if __name__ == "__main__":
+    app.run(debug=True)
+``
